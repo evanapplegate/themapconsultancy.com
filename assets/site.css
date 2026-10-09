@@ -1,0 +1,973 @@
+/* themapconsultancy.com */
+
+:root {
+  /* Optima ships on Apple devices; everyone else gets EB Garamond from /assets/fonts (bottom of this file) */
+  --font: Optima, 'EB Garamond', Georgia, serif;
+  --text: #696464;
+  --bg: #fdfaf5;
+  --rule: #decfb8;
+  --heading: #321d1d;
+  --gold: #ac824d;
+  --accent: #927f64;
+  --link: #6e5950;
+  --link-hover: #8c7a73;
+  --underline: #d1ccc1;
+  --radius: 5px;
+  --gradient: linear-gradient(45deg, #ddc19b, #ba9569);
+  --shadow: rgba(0, 34, 88, 0.05);
+  /* spacing system (hand-tuned on the Dorik version, now the whole layout) */
+  --space-header: 50px; /* header to the first block */
+  --space-row: 40px; /* content to the next rule, label rows and link lists */
+  --space-card: 50px; /* stacked cards */
+  --space-section: 100px; /* between sections, and before the footer */
+  --gutter: 30px;
+}
+@media (max-width: 767px) {
+  :root {
+    --space-header: 30px;
+    --space-row: 30px;
+    --space-card: 30px;
+    --space-section: 60px;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+}
+main {
+  overflow-x: clip; /* the services images run off the window edge; nothing may widen the page (iOS ignores body's clip) */
+}
+body {
+  margin: 0;
+  overflow-x: clip;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.3 var(--font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+[hidden] {
+  display: none !important;
+}
+img,
+video,
+iframe {
+  display: block;
+  max-width: 100%;
+}
+video {
+  height: auto;
+}
+img {
+  height: auto;
+}
+p,
+h1,
+h2,
+ul,
+ol {
+  margin: 0;
+}
+ul,
+ol {
+  margin: 14px 0;
+  padding-left: 40px;
+}
+:is(ul, ol) :is(ul, ol) {
+  margin: 0;
+}
+.text > :first-child,
+.grid > div > :is(ul, ol):first-child {
+  margin-top: 0;
+}
+.text > :last-child,
+.grid > div > :is(ul, ol):last-child {
+  margin-bottom: 0;
+}
+h1,
+h2 {
+  font-weight: 400;
+}
+a {
+  color: var(--link);
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--underline);
+  text-underline-offset: calc(0.075em + 1px); /* 1px below Optima's own underline */
+  transition: color 0.1s;
+}
+a:hover {
+  color: var(--link-hover);
+}
+.center {
+  text-align: center;
+}
+.right {
+  text-align: right;
+}
+
+/* ---------- page frame ---------- */
+.wrap {
+  width: min(100% - 30px, 1110px);
+  margin-inline: auto;
+}
+/* topo lines behind the page, added once the page has loaded (site.js) */
+.bg-ready main.topo {
+  background: url(img/topo.svg) 50% 0 / contain no-repeat;
+}
+.bg-ready main.topo-left {
+  background: url(img/topo.svg) 0 50% / contain no-repeat;
+}
+.flow > * + * {
+  margin-top: var(--space-section);
+}
+.flow > :first-child {
+  margin-top: var(--space-header);
+}
+
+/* ---------- header and menu ---------- */
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 70px;
+}
+@media (max-width: 767px) {
+  .site-header {
+    padding-top: 20px; /* phones: the logo starts where evanapplegate.com's content does */
+  }
+}
+.brand img {
+  width: 200px;
+}
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.menu a {
+  color: #000;
+  font-size: 18px;
+  text-decoration: none;
+}
+.menu a:hover {
+  color: var(--accent);
+}
+.menu .button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 10px; /* 30px from the last link */
+  padding: 10px 15px;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 500;
+}
+.menu .button:hover {
+  color: var(--bg);
+  opacity: 0.9;
+}
+.menu .button svg {
+  width: 22.5px;
+  height: 18px;
+  fill: currentColor;
+}
+.menu-toggle {
+  display: none;
+  padding: 8px 12px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background: none;
+  color: var(--accent);
+  cursor: pointer;
+}
+.menu-toggle svg {
+  display: block;
+  width: 20px;
+  height: 16px;
+  fill: currentColor;
+}
+@media (max-width: 1023px) {
+  .menu-toggle {
+    display: block;
+  }
+  .menu {
+    display: none;
+    flex-basis: 100%;
+    flex-direction: column;
+    gap: 0;
+    padding-top: 30px;
+    text-align: center;
+  }
+  .menu-toggle[aria-expanded='true'] + .menu {
+    display: flex;
+  }
+  .menu a {
+    margin-bottom: 20px;
+  }
+  .menu .button {
+    margin: 0 0 13px;
+  }
+}
+
+/* ---------- headings ---------- */
+.title {
+  --size: 43px;
+  color: var(--heading);
+  font-size: var(--size);
+  line-height: 1;
+  letter-spacing: -1px;
+}
+/* section titles keep the h1 margins Dorik gave them: 0.67em above and below */
+.flow > .title {
+  margin-top: calc(var(--space-section) + 0.67 * var(--size));
+}
+.flow > .title:first-child {
+  margin-top: calc(var(--space-header) + 0.67 * var(--size));
+}
+.flow > .page-title:first-child {
+  margin-top: 100px;
+}
+.cta {
+  color: var(--heading);
+  font-size: 26px;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin-bottom: 17px;
+}
+.flow > .title + * {
+  margin-top: calc(0.67 * 43px);
+}
+@media (max-width: 767px) {
+  .title {
+    --size: 32px;
+  }
+  .page-title {
+    --size: 40px;
+  }
+  .flow > .title + * {
+    margin-top: calc(0.67 * 32px);
+  }
+}
+
+/* ---------- grids: Dorik's columns, as CSS grid ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+  column-gap: var(--gutter);
+  align-items: start;
+}
+.g1 { --n: 1; }
+.g2 { --n: 2; }
+.g3 { --n: 3; }
+.g4 { --n: 4; }
+.g5 { --n: 5; }
+.g6 { --n: 6; }
+.g10 { --n: 10; }
+.span-2 { grid-column-end: span 2; }
+.span-3 { grid-column-end: span 3; }
+.span-4 { grid-column-end: span 4; }
+.span-5 { grid-column-end: span 5; }
+.start-2 { grid-column-start: 2; }
+.start-3 { grid-column-start: 3; }
+.start-4 { grid-column-start: 4; }
+/* inside a column: 15px between blocks, rules sit 9px down a 18px band */
+.grid > div > * {
+  display: block; /* linked images are <a>: block so the gaps below apply */
+}
+.grid > div > * + * {
+  margin-top: 15px;
+}
+.grid hr {
+  height: 0;
+  margin: 9px 0 8px;
+  border: 0;
+  border-top: 1px solid var(--rule);
+}
+.grid > div > hr + * {
+  margin-top: 0;
+}
+.grid img,
+.grid video {
+  width: 100%;
+  border-radius: var(--radius);
+}
+.grid img.square {
+  border-radius: 0;
+}
+.grid iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: var(--radius);
+}
+.nested {
+  row-gap: 10px;
+}
+.nested > div > * + * {
+  margin-top: 10px;
+}
+@media (max-width: 1023px) {
+  .grid {
+    display: flow-root; /* stacked; flow-root keeps the first rule's 9px from merging into the row gap */
+  }
+}
+.hide-desktop {
+  display: none;
+}
+@media (max-width: 767px) {
+  .hide-desktop {
+    display: block;
+  }
+  .hide-phone {
+    display: none;
+  }
+}
+
+/* image treatments carried over from the Dorik site */
+.tint-0-30 { filter: sepia(30%); }
+.tint-100-16 { filter: grayscale(100%) sepia(16%) saturate(133%); }
+.tint-62-54 { filter: grayscale(62%) sepia(54%); }
+.headshot {
+  width: 100px !important;
+  height: 100px;
+  object-fit: cover;
+}
+.tilt {
+  transform: rotate(5deg);
+}
+
+/* ---------- label rows (home, about, You Should Make Maps) and link lists (resources) ---------- */
+:is(.work, .links, .tips, .process, .need) + :is(.work, .links) {
+  margin-top: calc(var(--space-row) - 9px);
+}
+.flow > .work:first-child {
+  margin-top: calc(var(--space-header) - 9px);
+}
+.page-title + .work {
+  margin-top: 30px;
+}
+.long hr {
+  border-top-color: var(--bg);
+}
+.name {
+  margin-top: 5px;
+  color: var(--gold);
+  font-size: 26px;
+  letter-spacing: -1px;
+}
+.name + p {
+  margin-top: 9px;
+}
+/* About: the headshots ride 20px up into the label line, as on Dorik */
+.pull-up .headshot {
+  margin-top: -20px;
+}
+@media (max-width: 1023px) {
+  /* stacked, each project keeps one rule, the one above its write-up; its columns sit 20px apart */
+  .work > div + div > hr:first-child {
+    display: none;
+  }
+  .work:not(.testimonials) > div:not(:last-child) {
+    margin-bottom: 20px;
+  }
+}
+@media (max-width: 767px) {
+  .work > .hide-phone + div > hr:first-child {
+    display: block; /* the column above is hidden on phones, so this rule is the row's first */
+  }
+}
+@media (max-width: 767px) {
+  /* stacked media columns keep Dorik's 20px before the next column's rule */
+  .work > div:not(:first-child):not(:last-child) {
+    margin-bottom: 20px;
+  }
+  .testimonials > div:nth-last-child(2) > :first-child {
+    margin-top: 20px;
+  }
+  .testimonials > div:last-child > :first-child {
+    margin-top: 40px;
+  }
+  /* resources on phones, as Dorik had it: centred titles and headers, fixed-size tip images */
+  .flow > .title,
+  .tips > div > p:first-child {
+    text-align: center;
+  }
+  .flow > .page-title:first-child {
+    margin-top: 40px;
+  }
+  .links > div + div {
+    margin-top: 26px;
+  }
+  .tips img {
+    width: 350px;
+    height: 300px;
+    margin-inline: auto;
+    object-fit: cover;
+  }
+  .pull-up .headshot {
+    margin-top: 0;
+  }
+  /* Dorik centred the testimonials on phones */
+  .testimonials p:first-child,
+  .testimonials img {
+    margin-inline: auto;
+    text-align: center;
+  }
+  .testimonials em {
+    display: block;
+    text-align: justify;
+  }
+}
+.icon-text {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 25px;
+}
+.tips .grid > div > hr + *,
+.tips > div > hr + * {
+  margin-top: 11px;
+}
+.tips > div > a + *,
+.tips > div > img + * {
+  margin-top: 10px;
+}
+.icon-text svg {
+  height: 12.5px; /* half Dorik's 25px */
+  width: auto;
+  color: var(--rule);
+  fill: currentColor;
+}
+.need hr + * {
+  margin-top: 40px;
+}
+.need .cta {
+  margin-bottom: 0;
+}
+.process img {
+  width: 160px;
+}
+
+/* ---------- cards ---------- */
+.card {
+  padding: 30px;
+  border-radius: var(--radius);
+}
+.card + .card {
+  margin-top: var(--space-card);
+}
+.need + .card {
+  margin-top: 30px;
+}
+.logos {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  align-items: center;
+  gap: 27px;
+  background: var(--bg);
+  box-shadow: 0 0 50px var(--shadow);
+}
+.logos > :first-child {
+  align-self: start;
+}
+.logos img {
+  max-height: 40px;
+  width: auto;
+  margin-inline: auto;
+}
+.download {
+  box-shadow: 0 0 30px var(--shadow) inset;
+}
+.download .cta {
+  text-align: center;
+}
+.button.big {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 73px;
+  padding: 20px;
+  border-radius: var(--radius);
+  background: var(--gradient);
+  color: var(--bg);
+  font-size: 33px;
+  font-weight: 200;
+  letter-spacing: -1px;
+  text-decoration: none;
+}
+.button.big svg {
+  height: 33px;
+  width: auto;
+  fill: currentColor;
+}
+.download .button.big {
+  width: 50%; /* half the card, never narrower than its icon and label */
+  min-width: max-content;
+  margin-inline: auto;
+}
+.contact-card {
+  box-shadow: 0 0 30px var(--shadow);
+}
+.bg-ready .contact-card {
+  background: url(img/topo.svg) 50% 100% / cover no-repeat;
+}
+.two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 40px;
+}
+.calendly {
+  min-width: 320px;
+  height: 630px;
+}
+@media (min-width: 1024px) {
+  /* side by side, the Calendly column takes the form column's height, so the card ends just under the form */
+  .contact-card.two > div:has(> .calendly) {
+    display: flex;
+    flex-direction: column;
+  }
+  .contact-card.two .calendly {
+    flex: 1;
+    height: auto;
+    contain: size;
+  }
+}
+@media (max-width: 1023px) {
+  .logos {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  .logos > :first-child {
+    grid-column: 1 / -1;
+  }
+  .two {
+    display: block;
+  }
+  .two > div + div {
+    margin-top: var(--space-card);
+  }
+}
+@media (max-width: 767px) {
+  .logos {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 27px;
+  }
+  .logos > :first-child {
+    text-align: center;
+  }
+  .logos img {
+    width: 100%;
+    max-width: 190px;
+    max-height: none;
+  }
+  .logos img:last-child {
+    grid-column: 1 / -1;
+    max-width: 220px;
+  }
+  .flow > .logos + .checker {
+    margin-top: 17px;
+  }
+  .card .calendly {
+    min-width: 0;
+  }
+}
+
+/* ---------- contact form (Formspree) ---------- */
+.contact input,
+.contact textarea {
+  display: block;
+  width: 100%;
+  min-height: 50px;
+  margin: 0 0 15px;
+  padding: 10px 15px;
+  border: 2px solid #ddd;
+  border-radius: var(--radius);
+  background: #fff;
+  color: #171a21;
+  font: 16px/1.15 var(--font);
+}
+.contact button {
+  width: 100%;
+  height: 40px;
+  padding: 0 30px;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--gradient);
+  color: #fff;
+  font: 18px var(--font);
+  cursor: pointer;
+}
+.contact.big button {
+  height: 60px;
+  font-size: 28px;
+}
+.contact button[disabled] {
+  opacity: 0.7;
+  cursor: default;
+}
+.form-success,
+.form-error {
+  display: none;
+  margin-top: 10px;
+  padding: 10px 15px;
+  border-radius: 3px;
+  background: #fff;
+  text-align: center;
+}
+.form-success {
+  color: var(--text); /* the body text colour, not Dorik's green (owner's request) */
+}
+.form-error {
+  color: #ff3a28;
+}
+.form-success[data-fs-active],
+.form-error[data-fs-active] {
+  display: block;
+}
+.field-error {
+  display: none;
+  margin: -10px 0 10px;
+  color: #ff3a28;
+  font-size: 12px;
+}
+.field-error[data-fs-active] {
+  display: block;
+}
+.contact [aria-invalid='true'] {
+  border-color: #ff3a28;
+}
+
+/* ---------- services: alternating image and text, bleeding to the window edges ---------- */
+.checker {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+.flow > .checker + .checker {
+  margin-top: 0;
+}
+.checker-text {
+  /* text starts and ends on the page's content edges, 45px from the image */
+  padding: 0 45px 0 max(15px, 50vw - 555px);
+}
+.checker-media + .checker-text {
+  padding: 0 max(15px, 50vw - 555px) 0 45px;
+}
+.checker-media img {
+  width: 100%;
+  height: 400px;
+  margin-left: -15px; /* as on Dorik: images run 15px off the window edge, 30px apart in the middle */
+  object-fit: cover;
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.checker-text + .checker-media img {
+  margin-left: 15px;
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+.checker-media img.natural {
+  height: auto;
+}
+.checker .title {
+  margin-bottom: 29px;
+}
+.checker-media > .viz {
+  margin-left: 15px;
+}
+.checker iframe {
+  width: 100%;
+  margin-top: 10px;
+  border: 0;
+}
+.checker:first-child,
+.checker.top {
+  align-items: start;
+}
+@media (max-width: 1023px) {
+  /* stacked, as on Dorik: every service after the first shows its picture, then its title and list */
+  .checker,
+  .checker:first-child,
+  .checker.top {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .checker + .checker .checker-media {
+    order: -1;
+  }
+  .checker + .checker + .checker {
+    margin-top: 80px;
+  }
+  .checker-text,
+  .checker-media + .checker-text {
+    padding: 80px 15px 0;
+  }
+  .checker + .checker .checker-text {
+    padding-top: 80px;
+  }
+  .checker-media img,
+  .checker-text + .checker-media img {
+    width: calc(100% + 15px);
+    margin-left: 0;
+    border-radius: 0;
+  }
+  .flow > .checker + .title {
+    margin-top: calc(var(--space-section) + 0.67 * var(--size) + 80px);
+  }
+}
+@media (max-width: 767px) {
+  .checker + .checker .checker-text {
+    padding-top: 30px;
+  }
+  .checker .title {
+    margin-bottom: 22px;
+  }
+  /* the process: centred icons and step names, 50px between steps */
+  .process img {
+    width: 113px;
+    margin: 0 auto;
+  }
+  .process > div:nth-child(even) {
+    margin-top: 10px;
+  }
+  .process > div:nth-child(even):not(:last-child) {
+    margin-bottom: 50px;
+  }
+  .process p:first-child {
+    text-align: center;
+  }
+  .process hr {
+    margin: 3px 0 4px;
+  }
+}
+
+/* ---------- interactive maps (loaded by site.js when near) ---------- */
+#checkboxes1 {
+  padding-bottom: 10px;
+}
+.viz input[type='checkbox'] {
+  margin: 0 3px 0 0;
+}
+#map_nursing_homes {
+  height: 500px;
+}
+#bar_chart_text {
+  padding-top: 20px;
+}
+#bar_chart {
+  height: 400px;
+  margin: auto;
+  text-align: center;
+}
+.key.five-star { color: #8ec0e5; }
+.key.one-star { color: #f3ad9b; }
+.key.mid-star { color: #daaec4; }
+.viz p {
+  margin: 14px 0;
+}
+.viz-caption {
+  margin: auto;
+  padding: 0 30px;
+  line-height: 1;
+  text-align: center;
+}
+#state-map {
+  box-sizing: content-box;
+  aspect-ratio: 5 / 2; /* the map's viewBox; reserves its space before d3 draws it */
+  padding-top: 10px;
+}
+.viz-rule {
+  height: 1px;
+  border: 0;
+  background: var(--accent);
+}
+#accident_legend {
+  padding-bottom: 30px;
+}
+#accident_cities {
+  height: 400px;
+}
+.tooltip {
+  position: absolute;
+  padding: 4px;
+  background: rgba(97, 72, 52, 0.9);
+  color: #fff;
+  font-size: 12px;
+  line-height: 15px;
+  pointer-events: none;
+}
+.leaflet-container {
+  font-family: var(--font);
+}
+
+/* ---------- footer ---------- */
+.site-footer {
+  margin-top: var(--space-section);
+  padding-bottom: 50px;
+  text-align: center;
+}
+.site-footer img {
+  width: 200px;
+  margin: 0 auto;
+}
+.site-footer p {
+  margin: 14px 0;
+}
+.linkedin {
+  display: inline-block;
+  color: #000;
+}
+.linkedin svg {
+  width: 37.5px;
+  height: 30px;
+  fill: currentColor;
+}
+
+/* ---------- fade-in as blocks scroll in (site.js; desktop only) ---------- */
+.reveal-ready [data-reveal] {
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.reveal-ready [data-reveal='fade-up'] {
+  transform: translateY(100px);
+}
+.reveal-ready [data-reveal].revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* visually hidden, still read by screen readers and search engines (page headings on pages designed without one) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* EB Garamond (SIL Open Font License), weights 400-800, regular and italic.
+   Only downloaded where Optima is missing (Windows, Android); browsers fetch just the subsets a page uses. */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url(fonts/eb-garamond-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url(fonts/eb-garamond-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url(fonts/eb-garamond-normal-vietnamese.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url(fonts/eb-garamond-normal-greek.woff2) format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url(fonts/eb-garamond-normal-greek-ext.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url(fonts/eb-garamond-normal-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url(fonts/eb-garamond-normal-cyrillic-ext.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: italic;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url(fonts/eb-garamond-italic-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: italic;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url(fonts/eb-garamond-italic-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: italic;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url(fonts/eb-garamond-italic-vietnamese.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: italic;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url(fonts/eb-garamond-italic-greek.woff2) format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: italic;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url(fonts/eb-garamond-italic-greek-ext.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: italic;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url(fonts/eb-garamond-italic-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: italic;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url(fonts/eb-garamond-italic-cyrillic-ext.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}

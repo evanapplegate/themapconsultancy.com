@@ -1,0 +1,5 @@
+# Search engines and AI agents are welcome. A summary for language models: /llms.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://themapconsultancy.com/sitemap.xml

@@ -1,0 +1,29 @@
+# The Map Consultancy
+
+> The Map Consultancy is cartographer Evan Applegate's studio. It makes data-driven maps at all scales for organizations: interactive maps, custom map design, data visualization and infographics, geospatial analysis, map style guides and training, and data services. Clients include National Geographic, Bloomberg Businessweek, Bloomberg Philanthropies, Prologis and HF Sinclair.
+
+Contact: info@themapconsultancy.com, 415-506-9365. LinkedIn: https://www.linkedin.com/company/the-map-consultancy/
+
+## Services
+
+- Interactive maps
+- Custom map design
+- Data visualization and infographics
+- Geospatial analysis
+- Map style guides and training
+- Data services and research
+
+## Pages
+
+- [The Map Consultancy](https://themapconsultancy.com/): Cartographer Evan Applegate's studio makes data-driven maps for reports, decks, websites and walls: interactive maps, custom cartography, infographics and geospatial analysis.
+- [About](https://themapconsultancy.com/about/): The Map Consultancy is cartographer Evan Applegate, whose maps appear in National Geographic, Bloomberg Businessweek and reports for Bloomberg Philanthropies, Prologis and HF Sinclair.
+- [Services](https://themapconsultancy.com/services/): Interactive maps, custom map design, data visualization and infographics, geospatial analysis, map style guides and training, and data services and research.
+- [Resources](https://themapconsultancy.com/resources/): Favorite cartographers to learn from and three tips for better maps.
+- [You Should Make Maps](https://themapconsultancy.com/you-should-make-maps/): Mapmaking needs no formal training. Why you should make your own maps, and how self-taught cartographers got started.
+- [Contact](https://themapconsultancy.com/contact/): Get in touch or book a 15-minute call to see what good maps can do for your organization.
+
+## Related
+
+- [Evan Applegate](https://evanapplegate.com/): the cartographer behind these sites
+- [Radiant Maps](https://radiantmaps.co/): ultra-detailed LED-backlit illuminated maps
+- [Very Expensive Maps](https://veryexpensivemaps.com/): podcast interviewing cartographers
