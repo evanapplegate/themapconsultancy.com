@@ -12,7 +12,7 @@
   --link: #6e5950;
   --link-hover: #8c7a73;
   --underline: #d1ccc1;
-  --radius: 5px;
+  --radius: 2px; /* every corner: pictures, buttons, cards, form fields (as on physical.evanapplegate.com) */
   --gradient: linear-gradient(45deg, #ddc19b, #ba9569);
   --shadow: rgba(0, 34, 88, 0.05);
   /* spacing system (hand-tuned on the Dorik version, now the whole layout) */
@@ -617,7 +617,7 @@ a:hover {
   display: none;
   margin-top: 10px;
   padding: 10px 15px;
-  border-radius: 3px;
+  border-radius: var(--radius);
   background: #fff;
   text-align: center;
 }
@@ -750,6 +750,18 @@ a:hover {
 }
 
 /* ---------- interactive maps (loaded by site.js when near) ---------- */
+/* the maps' zoom buttons get the site's 2px corners too (Leaflet's own CSS loads later, hence .viz) */
+.viz .leaflet-bar {
+  border-radius: var(--radius);
+}
+.viz .leaflet-bar a:first-child {
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+}
+.viz .leaflet-bar a:last-child {
+  border-bottom-left-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+}
 #checkboxes1 {
   padding-bottom: 10px;
 }
