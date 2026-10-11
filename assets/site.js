@@ -1,8 +1,9 @@
 // Small page behaviours, no libraries:
 //  - phone menu toggle
 //  - fade / fade-up as blocks scroll in (what AOS did on the Dorik site; desktop only, off for reduced motion)
-//  - videos marked data-autoplay start when they scroll into view, instead of all downloading on load
-//  - Calendly and the interactive maps load only when they come near the viewport
+//  - videos marked data-autoplay start when they scroll into view, instead of all downloading on load;
+//    posters given as data-poster load as their video comes near
+//  - Calendly, Vimeo players and the interactive maps load only when they come near the viewport
 //  - decorative page backgrounds are added after the page has loaded (html.bg-ready)
 (() => {
   addEventListener('load', () => document.documentElement.classList.add('bg-ready'));
@@ -67,6 +68,14 @@
         window.Calendly.initInlineWidget({ url: el.dataset.url, parentElement: el });
       });
     }, '400px');
+  }
+
+  for (const v of document.querySelectorAll('video[data-poster]')) {
+    whenNear(v, () => { v.poster = v.dataset.poster; }, '600px');
+  }
+
+  for (const f of document.querySelectorAll('iframe[data-src]')) {
+    whenNear(f, () => { f.src = f.dataset.src; }, '300px');
   }
 
   const LIBS = {
