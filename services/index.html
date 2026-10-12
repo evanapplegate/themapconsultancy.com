@@ -209,6 +209,13 @@
 <script>
   window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
   formspree('initForm', { formElement: '.contact', formId: 'xljdqvqd', useDefaultStyles: false });
+  if (!window.fsBlocked) {  // addresses at these domains (or their subdomains) are refused before sending
+    window.fsBlocked = /@(?:[^@]*\.)?(?:hotmail\.com|mail\.ru)$/i;
+    document.addEventListener('input', function (e) {
+      var i = e.target;
+      if (i.type === 'email') i.setCustomValidity(fsBlocked.test(i.value.trim()) ? 'Please use a different email address.' : '');
+    });
+  }
 </script>
 </body>
 </html>
