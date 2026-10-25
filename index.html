@@ -24,7 +24,7 @@
   <meta name="author" content="Evan Applegate">
   <link rel="alternate" type="text/markdown" title="llms.txt" href="/llms.txt">
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://evanapplegate.com/#person","name":"Evan Applegate","jobTitle":"Cartographer","url":"https://evanapplegate.com/"},{"@type":"ProfessionalService","@id":"https://themapconsultancy.com/#org","name":"The Map Consultancy","url":"https://themapconsultancy.com/","logo":"https://themapconsultancy.com/assets/img/the_map_consultancy_logo_vmp2dwdu.svg","email":"info@themapconsultancy.com","telephone":"+1-415-506-9365","description":"The Map Consultancy is cartographer Evan Applegate's studio. It makes data-driven maps at all scales for organizations: interactive maps, custom map design, data visualization and infographics, geospatial analysis, map style guides and training, and data services. Clients include National Geographic, Bloomberg Businessweek, Bloomberg Philanthropies, Prologis and HF Sinclair.","founder":{"@id":"https://evanapplegate.com/#person"},"knowsAbout":["Cartography","Interactive maps","GIS","Data visualization","Infographics"],"sameAs":["https://www.linkedin.com/company/the-map-consultancy/"]},{"@type":"WebSite","@id":"https://themapconsultancy.com/#website","url":"https://themapconsultancy.com/","name":"The Map Consultancy","description":"The Map Consultancy is cartographer Evan Applegate's studio. It makes data-driven maps at all scales for organizations: interactive maps, custom map design, data visualization and infographics, geospatial analysis, map style guides and training, and data services. Clients include National Geographic, Bloomberg Businessweek, Bloomberg Philanthropies, Prologis and HF Sinclair.","publisher":{"@id":"https://themapconsultancy.com/#org"}},{"@type":"WebPage","@id":"https://themapconsultancy.com/#page","url":"https://themapconsultancy.com/","name":"The Map Consultancy | Effective, beautiful maps for organizations","description":"Cartographer Evan Applegate's studio makes data-driven maps for reports, decks, websites and walls: interactive maps, custom cartography, infographics and geospatial analysis.","isPartOf":{"@id":"https://themapconsultancy.com/#website"},"inLanguage":"en"}]}</script>
-  <script src="/assets/formspree.js" defer></script>
+  <script src="/assets/form.js" defer></script>
   <script src="/assets/site.js" defer></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -287,7 +287,7 @@
 <section class="card contact-card">
   <div>
     <h2 class="cta"><em>Get in touch and see what good maps can do.</em></h2>
-    <form class="contact" action="https://formspree.io/f/xljdqvqd" method="POST">
+    <form class="contact" action="https://radiantmaps.co/api/contact" method="POST">
       <input type="hidden" name="_subject" value="Message from The Map Consultancy">
       <input type="email" name="email" required placeholder="Email address" aria-label="Email address" autocomplete="email" data-fs-field>
       <span class="field-error" data-fs-error="email"></span>
@@ -307,16 +307,6 @@
   <p>info@themapconsultancy.com • 415-506-9365</p>
   <a class="linkedin" href="https://www.linkedin.com/company/the-map-consultancy/" target="_blank" aria-label="LinkedIn"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"></path></svg></a>
 </footer>
-<script>
-  window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
-  formspree('initForm', { formElement: '.contact', formId: 'xljdqvqd', useDefaultStyles: false });
-  if (!window.fsBlocked) {  // addresses at these domains (or their subdomains) are refused before sending
-    window.fsBlocked = /@(?:[^@]*\.)?(?:hotmail\.com|mail\.ru)$/i;
-    document.addEventListener('input', function (e) {
-      var i = e.target;
-      if (i.type === 'email') i.setCustomValidity(fsBlocked.test(i.value.trim()) ? 'Please use a different email address.' : '');
-    });
-  }
-</script>
+
 </body>
 </html>
